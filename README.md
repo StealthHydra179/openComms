@@ -1,5 +1,5 @@
 # openComms v0.1
 A open source chat system
 
-(Client)[client/README.md]
-(Server)[server/README.md]
+- [Client Spec](client/README.md)
+- [Server Spec](server/README.md)
