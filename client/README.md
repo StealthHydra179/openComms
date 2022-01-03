@@ -1,6 +1,8 @@
 # OpenComms Client Spec
 All data is sent in a json format (converted to string).
 
+
+
 ## Signup
 Creating an account. Does not retrieve a client token.
 
@@ -13,8 +15,33 @@ Request format:
 | password | String | password          |
 | time     | String | unix timestamp    |
 
-Server Responses:
-**WIP**
+```json
+{
+    "type": "signup",
+    "username": "ExampleUser",
+    "email": "email@example.com",
+    "password": "Example Password",
+    "time": "1641138383"
+}
+```
+
+Server Response:
+| Name        | Type    | Value              |
+| ----------- | ------- | ------------------ |
+| type        | String  | "signup"           |
+| code        | Integer | Server return code |
+| description | String  | more info          |
+| time        | String  | unix timestamp     |
+
+```json
+{
+    "type": "signup",
+    "code": 200,
+    "description": "success",
+    "time": "1641138383"
+}
+```
+
 
 ## Login
 Retrieving a client token. Client tokens expire after 1 hour of inactivity or 24 hours of being created, whichever comes first.
@@ -27,7 +54,31 @@ Request format:
 | password | String | password          |
 | time     | String | unix timestamp    |
 
-**WIP**
+```json
+{
+    "type": "login",
+    "username": "ExampleUser",
+    "password": "Example Password",
+    "time": "1641138383"
+}
+```
+
+Server Response:
+| Name        | Type    | Value              |
+| ----------- | ------- | ------------------ |
+| type        | String  | "login"            |
+| code        | Integer | Server return code |
+| description | String  | more info          |
+| time        | String  | unix timestamp     |
+
+```json
+{
+    "type": "login",
+    "code": 200,
+    "description": "success",
+    "time": "1641138383"
+}
+```
 
 ## Signout
 Closing a client token
