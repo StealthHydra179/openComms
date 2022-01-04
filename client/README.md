@@ -69,6 +69,7 @@ Server Response:
 | type        | String  | "login"            |
 | code        | Integer | Server return code |
 | description | String  | more info          |
+| token       | String  | token              |
 | time        | String  | unix timestamp     |
 
 ```json
@@ -76,13 +77,42 @@ Server Response:
     "type": "login",
     "code": 200,
     "description": "success",
+    "token": "Edji83djUVyeufiiuchushd",
     "time": "1641138383"
 }
 ```
 
 ## Signout
 Closing a client token
-**WIP**
+
+Request format:
+| Name     | Type   | Value             |
+| -------- | ------ | ----------------- |
+| type     | String | "signout"         |
+| token    | String | user token        |
+| time     | String | unix timestamp    |
+
+```json
+{
+    "type": "signout",
+    "token": "Edji83djUVyeufiiuchushd",
+    "time": "1641138383"
+}
+```
+Server response:
+| Name     | Type   | Value                |
+| -------- | ------ | -------------------- |
+| type     | String | "signout"            |
+| code     | String | server response code |
+| time     | String | unix timestamp       |
+
+```json
+{
+    "type": "signout",
+    "code": 200,
+    "time": "1641138383"
+}
+```
 
 ## Joining a Server
 
