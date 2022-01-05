@@ -183,7 +183,7 @@ Example:
 ```
 
 ### Private Server \[Recommended]
-**WIP**
+The same as joining a public server except the sent packet also contains `password` wich has type `String` that contains the password to the server.
 
 ## Leaving a server
 **NOT DEFINED YET**
