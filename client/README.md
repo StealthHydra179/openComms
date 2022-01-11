@@ -1,7 +1,8 @@
 # OpenComms Client Spec
 All data is sent in a json format (converted to string).
 
-
+## Connecting
+Websocket
 
 ## Signup
 Creating an account. Does not retrieve a client token.
@@ -261,3 +262,7 @@ When recieving a message in json format the server will send a message
 ```
 
 No response is necessary
+
+
+## Requesting a series of messages
+**[WIP]**
