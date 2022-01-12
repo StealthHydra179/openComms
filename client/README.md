@@ -1,6 +1,8 @@
 # OpenComms Client Spec
 All data is sent in a json format (converted to string).
 
+> *More specific example requests will be added in a later version*
+
 ## Connecting
 Websocket
 
@@ -78,7 +80,7 @@ Server Response:
     "type": "login",
     "code": 200,
     "description": "success",
-    "token": "Edji83djUVyeufiiuchushd",
+    "token": "example_token",
     "time": "1641138383"
 }
 ```
@@ -96,7 +98,7 @@ Request format:
 ```json
 {
     "type": "signout",
-    "token": "Edji83djUVyeufiiuchushd",
+    "token": "example_token",
     "time": "1641138383"
 }
 ```
@@ -130,7 +132,7 @@ Public servers do not require passwords.
 
 ```json
 {
-    "token": "Edji83djUVyeufiiuchushd",
+    "token": "example_token",
     "type": "server_join",
     "server": "0x0",
     "invite": "0x0",
@@ -192,7 +194,7 @@ The same as joining a public server except the sent packet also contains `passwo
 ## Messaging
 
 ### Sending \[Mandatory]
-When sending a message send it in a json format. The server will respond with 200 if it goes through.
+When sending a message the server will respond with 200 if it goes through.
 
 
 | Name      | Type        | Value                  |
@@ -207,7 +209,7 @@ When sending a message send it in a json format. The server will respond with 20
 Example Message 
 ```json
 {
-    "token": "Edji83djUVyeufiiuchushd",
+    "token": "example_token",
     "type": "sent_message",
     "server": "0x0",
     "channel": "0x0",
@@ -237,7 +239,7 @@ Example Success Response
 ```
 
 ### Recieving \[Mandatory]
-When recieving a message in json format the server will send a message
+When recieving a message the server will send a message
 
 | Name       | Type        | Value                  |
 | ---------- | ----------- | ---------------------- |
@@ -263,6 +265,49 @@ When recieving a message in json format the server will send a message
 
 No response is necessary
 
+### Requesting a message \[Mandatory]
+A client may need to request a unloaded message for display purposes, in which the client will request
+| Name       | Type        | Value                         |
+| ---------- | ----------- | ----------------------------- |
+| token      | String      | Issued client token           |
+| type       | String      | "request_message"             |
+| server     | String      | Hexidecimal Server ID         |
+| channel    | String      | Hexidscimal Channel ID        |
+| message    | String      | ID of message to be retrieved |
 
-## Requesting a series of messages
+```json
+{
+    "token": "example_token",
+    "type": "request_message",
+    "server": "0x0",
+    "channel": "0x0",
+    "message": "0x0"
+}
+```
+
+
+### Requesting a series of messages \[Recommended]
 **[WIP]**
+
+When a client loads up, often they need to load a large amount of messages at once
+| Name       | Type        | Value                  |
+| ---------- | ----------- | ---------------------- |
+| token      | String      | Issued client token    |
+| type       | String      | "request_message_list" |
+| server     | String      | Hexidecimal Server ID  |
+| channel    | String      | Hexidscimal Channel ID |
+| newest     | String      | ID of latest message   |
+| oldest     | String      | ID of oldest message   |
+
+`oldest` is always a smaller id than `newest` since newer messages have larger ids.
+
+```json
+{
+    "token": "example_token",
+    "type": "request_message",
+    "server": "0x0",
+    "channel": "0x0",
+    "newest": "0xF",
+    "oldest": "0x0"
+}
+```
