@@ -10,13 +10,14 @@ Websocket
 Creating an account. Does not retrieve a client token.
 
 Request format:
-| Name     | Type   | Value             |
-| -------- | ------ | ----------------- |
-| type     | String | "signup"          |
-| username | String | username          |
-| email    | String | email             | 
-| password | String | password          |
-| time     | String | unix timestamp    |
+
+| Name     | Type   | Value          |
+|----------|--------|----------------|
+| type     | String | "signup"       |
+| username | String | username       |
+| email    | String | email          | 
+| password | String | password       |
+| time     | String | unix timestamp |
 
 ```json
 {
@@ -29,6 +30,7 @@ Request format:
 ```
 
 Server Response:
+
 | Name        | Type    | Value              |
 | ----------- | ------- | ------------------ |
 | type        | String  | "signup"           |
@@ -50,6 +52,7 @@ Server Response:
 Retrieving a client token. Client tokens expire after 1 hour of inactivity or 24 hours of being created, whichever comes first.
 
 Request format:
+
 | Name     | Type   | Value             |
 | -------- | ------ | ----------------- |
 | type     | String | "login"           |
@@ -67,6 +70,7 @@ Request format:
 ```
 
 Server Response:
+
 | Name        | Type    | Value              |
 | ----------- | ------- | ------------------ |
 | type        | String  | "login"            |
@@ -89,11 +93,12 @@ Server Response:
 Closing a client token
 
 Request format:
-| Name     | Type   | Value             |
-| -------- | ------ | ----------------- |
-| type     | String | "signout"         |
-| token    | String | user token        |
-| time     | String | unix timestamp    |
+
+| Name  | Type   | Value          |
+|-------|--------|----------------|
+| type  | String | "signout"      |
+| token | String | user token     |
+| time  | String | unix timestamp |
 
 ```json
 {
@@ -103,11 +108,12 @@ Request format:
 }
 ```
 Server response:
-| Name     | Type   | Value                |
-| -------- | ------ | -------------------- |
-| type     | String | "signout"            |
-| code     | String | server response code |
-| time     | String | unix timestamp       |
+
+| Name | Type   | Value                |
+|------|--------|----------------------|
+| type | String | "signout"            |
+| code | String | server response code |
+| time | String | unix timestamp       |
 
 ```json
 {
@@ -123,7 +129,7 @@ Server response:
 Public servers do not require passwords.
 
 | Name      | Type   | Value                 |
-| --------- | ------ | --------------------- |
+|-----------|--------|-----------------------|
 | token     | String | Issued Client Token   |
 | type      | String | "server_join"         |
 | server    | String | Hexidecimal Server ID |
@@ -142,27 +148,30 @@ Public servers do not require passwords.
 Server will return the status code, and if successfull it will also return the server layout and default channel id.
 
 | Name           | Type         | Value                                           |
-| -------------- | ------------ | ----------------------------------------------- |
+|----------------|--------------|-------------------------------------------------|
 | type           | String       | "server_join"                                   |
 | code           | Integer      | Server return code                              |
 | serverContents | json(String) | If server returns 200 serverContents will exist |
 | defaultChannel | String       | Hexidecimal Channel ID                          |
 
 Server Contents:
+
 | Name       | Type         | Value            |
-| ---------- | ------------ | ---------------- |
+|------------|--------------|------------------|
 | serverName | String       | Name of server   |
 | serverID   | String       | Hex ID of server |
 | channels   | json(String) | List of channels |
 
 Channels:
+
 | Name      | Type         | Value              |
-| --------- | ------------ | ------------------ |
+|-----------|--------------|--------------------|
 | channelID | json(String) | Info about channel |
 
 Channel Information:
+
 | Name        | Type   | Value                          |
-| ----------- | ------ | ------------------------------ |
+|-------------|--------|--------------------------------|
 | name        | String | Name of channel                |
 | description | String | The description of the channel |
 
@@ -197,14 +206,14 @@ The same as joining a public server except the sent packet also contains `passwo
 When sending a message the server will respond with 200 if it goes through.
 
 
-| Name      | Type        | Value                  |
-| --------- | ----------- | ---------------------- |
-| token     | String      | Issued Client Token    |
-| type      | String      | "sent_message"         |
-| server    | String      | Hexidecimal Server ID  |
-| channel   | String      | Hexidscimal Channel ID |
-| content   | String      | Message Content        |
-| timestamp | String      | Unix Timestamp         |
+| Name      | Type   | Value                  |
+|-----------|--------|------------------------|
+| token     | String | Issued Client Token    |
+| type      | String | "sent_message"         |
+| server    | String | Hexidecimal Server ID  |
+| channel   | String | Hexidscimal Channel ID |
+| content   | String | Message Content        |
+| timestamp | String | Unix Timestamp         |
 
 Example Message 
 ```json
@@ -220,12 +229,12 @@ Example Message
 
 Response from server will be a code along with the type and content of the sent data.
 
-| Name      | Type       | Value                     |
-| --------- | ---------- | ------------------------- |
-| type      | String     | "sent_message"            |
-| code      | Integer    | http error code           |
-| timestamp | String     | Unix Timestamp of message |
-| id        | String     | Hexidecimal ID of message |
+| Name      | Type    | Value                     |
+|-----------|---------|---------------------------|
+| type      | String  | "sent_message"            |
+| code      | Integer | http error code           |
+| timestamp | String  | Unix Timestamp of message |
+| id        | String  | Hexidecimal ID of message |
 
 Example Success Response
 ```json
@@ -241,15 +250,15 @@ Example Success Response
 ### Recieving \[Mandatory]
 When recieving a message the server will send a message
 
-| Name       | Type        | Value                  |
-| ---------- | ----------- | ---------------------- |
-| type       | String      | "recieved_message"     |
-| server     | String      | Hexidecimal Server ID  |
-| channel    | String      | Hexidscimal Channel ID |
-| content    | String      | Message Content        |
-| timestamp  | String      | Unix Timestamp         |
-| id         | String      | Hexidecimal Message ID |
-| sender     | String      | Hexidecimal Sender ID  |
+| Name      | Type   | Value                  |
+|-----------|--------|------------------------|
+| type      | String | "recieved_message"     |
+| server    | String | Hexidecimal Server ID  |
+| channel   | String | Hexidscimal Channel ID |
+| content   | String | Message Content        |
+| timestamp | String | Unix Timestamp         |
+| id        | String | Hexidecimal Message ID |
+| sender    | String | Hexidecimal Sender ID  |
 
 ```json
 {
@@ -267,13 +276,14 @@ No response is necessary
 
 ### Requesting a message \[Mandatory]
 A client may need to request a unloaded message for display purposes, in which the client will request
-| Name       | Type        | Value                         |
-| ---------- | ----------- | ----------------------------- |
-| token      | String      | Issued client token           |
-| type       | String      | "request_message"             |
-| server     | String      | Hexidecimal Server ID         |
-| channel    | String      | Hexidscimal Channel ID        |
-| message    | String      | ID of message to be retrieved |
+
+| Name    | Type   | Value                         |
+|---------|--------|-------------------------------|
+| token   | String | Issued client token           |
+| type    | String | "request_message"             |
+| server  | String | Hexidecimal Server ID         |
+| channel | String | Hexidscimal Channel ID        |
+| message | String | ID of message to be retrieved |
 
 ```json
 {
@@ -290,14 +300,15 @@ A client may need to request a unloaded message for display purposes, in which t
 **[WIP]**
 
 When a client loads up, often they need to load a large amount of messages at once
-| Name       | Type        | Value                  |
-| ---------- | ----------- | ---------------------- |
-| token      | String      | Issued client token    |
-| type       | String      | "request_message_list" |
-| server     | String      | Hexidecimal Server ID  |
-| channel    | String      | Hexidscimal Channel ID |
-| newest     | String      | ID of latest message   |
-| oldest     | String      | ID of oldest message   |
+
+| Name    | Type   | Value                  |
+|---------|--------|------------------------|
+| token   | String | Issued client token    |
+| type    | String | "request_message_list" |
+| server  | String | Hexidecimal Server ID  |
+| channel | String | Hexidscimal Channel ID |
+| newest  | String | ID of latest message   |
+| oldest  | String | ID of oldest message   |
 
 `oldest` is always a smaller id than `newest` since newer messages have larger ids.
 
