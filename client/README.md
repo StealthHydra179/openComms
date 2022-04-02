@@ -233,6 +233,7 @@ Response from server will be a code along with the type and content of the sent 
 |-----------|---------|---------------------------|
 | type      | String  | "sent_message"            |
 | code      | Integer | http error code           |
+| content   | String  | content of the message    |
 | timestamp | String  | Unix Timestamp of message |
 | id        | String  | Hexidecimal ID of message |
 
@@ -248,7 +249,7 @@ Example Success Response
 ```
 
 ### Recieving \[Mandatory]
-When recieving a message the server will send a message
+When receiving a message the server will send a message to the client with the message content
 
 | Name      | Type   | Value                  |
 |-----------|--------|------------------------|
@@ -295,9 +296,33 @@ A client may need to request a unloaded message for display purposes, in which t
 }
 ```
 
+Response from the server will be a json of just the message
 
-### Requesting a series of messages \[Recommended]
+| Name      | Type    | Value                        |
+|-----------|---------|------------------------------|
+| type      | String  | "request_message"            |
+| code      | Integer | http response code           |
+| timestamp | String  | Unix Timestamp of message    |
+| content   | String  | Content of the message       |
+| sender    | String  | Hexidecimal id of the sender |
+
+
+Example Success Response
+```json
+{
+    "type": "sent_message",
+    "code": 200,
+    "timestamp": "1641138383",
+    "content": "example message",
+    "sender": "0x0"
+}
+```
+
+
+### Requesting a series of messages \[Highly Recommended]
 **[WIP]**
+
+*Recommended Alternative: requesting each message individually*
 
 When a client loads up, often they need to load a large amount of messages at once
 
