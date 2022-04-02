@@ -340,10 +340,31 @@ When a client loads up, often they need to load a large amount of messages at on
 ```json
 {
     "token": "example_token",
-    "type": "request_message",
+    "type": "request_message_list",
     "server": "0x0",
     "channel": "0x0",
     "newest": "0xF",
     "oldest": "0x0"
 }
 ```
+
+The server will respond with a JSON object with the messages
+
+
+| Name           | Type                              | Value                           |
+|----------------|-----------------------------------|---------------------------------|
+| type           | String                            | "request_message_list"          |
+| code           | Integer                           | http result code                |
+| timestamp      | String                            | current unix timestamp          |
+| length         | String                            | length of the array of messages |
+| array          | Array Of JSON Objects of Messages | (See Next Table)                |
+| firstMessageID | String                            | ID of first message             |
+| lastMessageID  | String                            | Id of last message              |
+
+Example message for JSON obj
+
+| Name      | Type   | Value                      |
+|-----------|--------|----------------------------|
+| message   | String | the content of the message |
+| id        | String | hex id of message          |
+| timestamp | String | Unix timestamp of message  |
